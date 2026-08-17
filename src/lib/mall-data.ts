@@ -31,9 +31,9 @@ export type Poi = {
 export type Floor = { id: number; name: string; short: string };
 
 export const FLOORS: Floor[] = [
-  { id: 1, name: "Ground Floor", short: "G" },
-  { id: 2, name: "First Floor", short: "1" },
-  { id: 3, name: "Second Floor", short: "2" },
+  { id: 1, name: "Floor 1 — Ground", short: "1" },
+  { id: 2, name: "Floor 2 — Fashion & Food Court", short: "2" },
+  { id: 3, name: "Floor 3 — FunCity & Dining", short: "3" },
 ];
 
 export const nodeId = (floor: number, x: number, y: number) => `f${floor}:${x},${y}`;
