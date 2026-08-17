@@ -221,6 +221,20 @@ function nearbyHint(p: PathPoint) {
 }
 
 /** total length of the route polyline, used for progress animation */
+export function nearestNode(x: number, y: number, floor: number): string {
+  let best = "";
+  let bd = Infinity;
+  for (const n of NODES.values()) {
+    if (n.floor !== floor) continue;
+    const d = Math.hypot(n.x - x, n.y - y);
+    if (d < bd) {
+      bd = d;
+      best = n.id;
+    }
+  }
+  return best;
+}
+
 export function routeLength(points: PathPoint[]) {
   return segLen(points, 0, points.length - 1);
 }
