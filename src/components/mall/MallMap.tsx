@@ -138,22 +138,6 @@ export function MallMap({ floor, route, user, destination, onSelect, onRecenter 
             );
           })}
 
-          {/* escalator */}
-          <g>
-            <rect
-              x={ESCALATOR.x - 42}
-              y={ESCALATOR.y - 22}
-              width="84"
-              height="44"
-              rx="10"
-              fill="var(--escalator)"
-              stroke="var(--border)"
-            />
-            <text x={ESCALATOR.x} y={ESCALATOR.y + 5} textAnchor="middle" fontSize="13" fontWeight="700" fill="var(--foreground)">
-              Escalator
-            </text>
-          </g>
-
           {/* route */}
           {line.length > 1 && (
             <>
@@ -175,6 +159,22 @@ export function MallMap({ floor, route, user, destination, onSelect, onRecenter 
               />
             </>
           )}
+
+          {/* escalator */}
+          <g>
+            <rect
+              x={ESCALATOR.x - 42}
+              y={ESCALATOR.y - 22}
+              width="84"
+              height="44"
+              rx="10"
+              fill="var(--escalator)"
+              stroke="var(--border)"
+            />
+            <text x={ESCALATOR.x} y={ESCALATOR.y + 5} textAnchor="middle" fontSize="13" fontWeight="700" fill="var(--foreground)">
+              Escalator
+            </text>
+          </g>
 
           {/* destination pin */}
           {destination && destination.floor === floor && (
