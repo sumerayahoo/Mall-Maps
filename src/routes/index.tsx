@@ -18,7 +18,13 @@ import {
 } from "lucide-react";
 import { MallMap } from "@/components/mall/MallMap";
 import { FLOORS, POIS, nodeId, poiById, type Poi } from "@/lib/mall-data";
-import { buildRoute, positionAt, routeLength, type Route as NavRoute } from "@/lib/mall-nav";
+import {
+  buildRoute,
+  nearestNode,
+  positionAt,
+  routeLength,
+  type Route as NavRoute,
+} from "@/lib/mall-nav";
 import { visualSearch } from "@/lib/visual-search.functions";
 import type { SearchResult } from "@/lib/visual-search.server";
 
@@ -77,8 +83,8 @@ function Index() {
 
   const startRoute = useCallback(
     (poi: Poi) => {
-      const from = nodeId(user.floor, snap(user.x), snap(user.y));
-      const r = buildRoute(from ? from : START_NODE, poi) ?? buildRoute(START_NODE, poi);
+      const from = nearestNode(user.x, user.y, user.floor) || START_NODE;
+      const r = buildRoute(from, poi) ?? buildRoute(START_NODE, poi);
       if (!r) return;
       setRoute(r);
       setSelected(poi);
@@ -320,8 +326,6 @@ function Index() {
     </main>
   );
 }
-
-const snap = (v: number) => v;
 
 function StepIcon({ icon, tone }: { icon: string; tone?: "muted" }) {
   const cls = `size-4 ${tone ? "mt-0.5 text-primary" : ""}`;
