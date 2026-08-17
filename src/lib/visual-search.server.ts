@@ -14,7 +14,7 @@ export type SearchResult = {
   usedAi: boolean;
 };
 
-type Cue = { color?: string; category?: string; keywords: string[] };
+type Cue = { color?: string | undefined; category?: string | undefined; keywords: string[] };
 
 const COLORS = [
   "pink","black","brown","beige","blue","white","red","green","yellow","purple","grey","gold",
