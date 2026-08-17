@@ -47,8 +47,8 @@ const BANDS: Record<Band, { y: number; h: number; doorY: number }> = {
   bottom: { y: 568, h: 92, doorY: 560 },
 };
 
-const nearestX = (cx: number) =>
-  XS.reduce((a, b) => (Math.abs(b - cx) < Math.abs(a - cx) ? b : a), XS[0]);
+const nearestX = (cx: number): number =>
+  XS.reduce<number>((a, b) => (Math.abs(b - cx) < Math.abs(a - cx) ? b : a), 120);
 
 function unit(
   floor: number,
@@ -60,7 +60,7 @@ function unit(
   tags: string[] = [],
   w = 168,
 ): Poi {
-  const b = BANDS[band];
+  const b = BANDS[band]!;
   const doorSide = band === "top" || band === "low" ? "bottom" : "top";
   return {
     id,
