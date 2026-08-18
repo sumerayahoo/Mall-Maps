@@ -27,6 +27,7 @@ import {
 } from "@/lib/mall-nav";
 import { visualSearch } from "@/lib/visual-search.functions";
 import type { SearchResult } from "@/lib/visual-search.server";
+import splash from "@/assets/mall-maps-splash.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -201,7 +202,7 @@ function Index() {
       </div>
 
       {/* Brand + floor switcher */}
-      <div className="absolute left-3 top-20 z-10 flex flex-col gap-3 sm:left-4 sm:top-24">
+      <div className="absolute right-3 top-20 z-10 flex flex-col items-end gap-3 sm:right-4 sm:top-24">
         <div className="map-shadow rounded-2xl border border-border bg-card px-3 py-2">
           <h1 className="text-sm font-bold tracking-tight">Mall Maps</h1>
           <p className="text-[11px] text-muted-foreground">Indoor navigation</p>
@@ -224,8 +225,8 @@ function Index() {
 
       {/* Navigation banner */}
       {route && (
-        <div className="pointer-events-none absolute inset-x-0 top-20 z-10 px-3 sm:top-24 sm:px-4">
-          <div className="pointer-events-auto mx-auto max-w-md rounded-2xl bg-primary px-4 py-3 text-primary-foreground map-shadow">
+        <div className="pointer-events-none absolute left-3 top-20 z-10 w-[min(22rem,calc(100%-1.5rem))] sm:left-4 sm:top-24">
+          <div className="pointer-events-auto rounded-2xl bg-primary px-4 py-3 text-primary-foreground map-shadow">
             <div className="flex items-center gap-3">
               <StepIcon icon={arrived ? "arrive" : route.steps[stepIndex]!.icon} />
               <div className="min-w-0">
@@ -243,7 +244,9 @@ function Index() {
 
       {/* Bottom sheet: place card or directions */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 p-3 sm:p-4">
-        <div className="pointer-events-auto mx-auto w-full max-w-md">
+        <div
+          className={`pointer-events-auto w-full max-w-md ${route ? "mr-auto" : "mx-auto"}`}
+        >
           {route ? (
             <div className="map-shadow max-h-[46vh] overflow-y-auto rounded-3xl border border-border bg-card p-4">
               <div className="flex items-center justify-between gap-2">
@@ -323,7 +326,42 @@ function Index() {
       </div>
 
       {lensOpen && <LensPanel onClose={() => setLensOpen(false)} onNavigate={startRoute} />}
+      <Splash />
     </main>
+  );
+}
+
+function Splash() {
+  const [fading, setFading] = useState(false);
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    const a = window.setTimeout(() => setFading(true), 1400);
+    const b = window.setTimeout(() => setDone(true), 4200);
+    return () => {
+      window.clearTimeout(a);
+      window.clearTimeout(b);
+    };
+  }, []);
+
+  if (done) return null;
+
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-50 grid place-items-center bg-background transition-all duration-[2600ms] ease-out"
+      style={{
+        opacity: fading ? 0 : 1,
+        filter: fading ? "blur(28px)" : "blur(0px)",
+        transform: fading ? "scale(1.06)" : "scale(1)",
+      }}
+    >
+      <img
+        src={splash.url}
+        alt="Mall Maps"
+        className="max-h-full max-w-full object-contain"
+      />
+    </div>
   );
 }
 
@@ -457,7 +495,9 @@ function LensPanel({ onClose, onNavigate }: { onClose: () => void; onNavigate: (
                         {m.storeName} · Floor {m.floor}
                       </span>
                     </span>
-                    <span className="text-sm font-bold">AED {m.product.price}</span>
+                    <span className="text-sm font-bold">
+                      ₹{m.product.price.toLocaleString("en-IN")}
+                    </span>
                     <Navigation className="size-4 text-primary" />
                   </button>
                 );
