@@ -27,7 +27,7 @@ import {
 } from "@/lib/mall-nav";
 import { visualSearch } from "@/lib/visual-search.functions";
 import type { SearchResult } from "@/lib/visual-search.server";
-import splash from "@/assets/mall-maps-splash.png.asset.json";
+import splash from "@/assets/mall-maps-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -336,6 +336,11 @@ function Splash() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
+    if (sessionStorage.getItem("mm-splash-shown")) {
+      setDone(true);
+      return;
+    }
+    sessionStorage.setItem("mm-splash-shown", "1");
     const a = window.setTimeout(() => setFading(true), 2200);
     const b = window.setTimeout(() => setDone(true), 3200);
     return () => {
