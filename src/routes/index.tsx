@@ -243,7 +243,9 @@ function Index() {
 
       {/* Bottom sheet: place card or directions */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 p-3 sm:p-4">
-        <div className="pointer-events-auto mx-auto w-full max-w-md">
+        <div
+          className={`pointer-events-auto w-full max-w-md ${route ? "mr-auto" : "mx-auto"}`}
+        >
           {route ? (
             <div className="map-shadow max-h-[46vh] overflow-y-auto rounded-3xl border border-border bg-card p-4">
               <div className="flex items-center justify-between gap-2">
@@ -457,7 +459,9 @@ function LensPanel({ onClose, onNavigate }: { onClose: () => void; onNavigate: (
                         {m.storeName} · Floor {m.floor}
                       </span>
                     </span>
-                    <span className="text-sm font-bold">AED {m.product.price}</span>
+                    <span className="text-sm font-bold">
+                      ₹{m.product.price.toLocaleString("en-IN")}
+                    </span>
                     <Navigation className="size-4 text-primary" />
                   </button>
                 );
