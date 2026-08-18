@@ -27,6 +27,7 @@ import {
 } from "@/lib/mall-nav";
 import { visualSearch } from "@/lib/visual-search.functions";
 import type { SearchResult } from "@/lib/visual-search.server";
+import splash from "@/assets/mall-maps-splash.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -325,7 +326,42 @@ function Index() {
       </div>
 
       {lensOpen && <LensPanel onClose={() => setLensOpen(false)} onNavigate={startRoute} />}
+      <Splash />
     </main>
+  );
+}
+
+function Splash() {
+  const [fading, setFading] = useState(false);
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    const a = window.setTimeout(() => setFading(true), 1400);
+    const b = window.setTimeout(() => setDone(true), 4200);
+    return () => {
+      window.clearTimeout(a);
+      window.clearTimeout(b);
+    };
+  }, []);
+
+  if (done) return null;
+
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-50 grid place-items-center bg-background transition-all duration-[2600ms] ease-out"
+      style={{
+        opacity: fading ? 0 : 1,
+        filter: fading ? "blur(28px)" : "blur(0px)",
+        transform: fading ? "scale(1.06)" : "scale(1)",
+      }}
+    >
+      <img
+        src={splash.url}
+        alt="Mall Maps"
+        className="max-h-full max-w-full object-contain"
+      />
+    </div>
   );
 }
 
