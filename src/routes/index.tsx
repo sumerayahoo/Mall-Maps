@@ -201,7 +201,7 @@ function Index() {
       </div>
 
       {/* Brand + floor switcher */}
-      <div className="absolute left-3 top-20 z-10 flex flex-col gap-3 sm:left-4 sm:top-24">
+      <div className="absolute right-3 top-20 z-10 flex flex-col items-end gap-3 sm:right-4 sm:top-24">
         <div className="map-shadow rounded-2xl border border-border bg-card px-3 py-2">
           <h1 className="text-sm font-bold tracking-tight">Mall Maps</h1>
           <p className="text-[11px] text-muted-foreground">Indoor navigation</p>
@@ -224,8 +224,8 @@ function Index() {
 
       {/* Navigation banner */}
       {route && (
-        <div className="pointer-events-none absolute inset-x-0 top-20 z-10 px-3 sm:top-24 sm:px-4">
-          <div className="pointer-events-auto mx-auto max-w-md rounded-2xl bg-primary px-4 py-3 text-primary-foreground map-shadow">
+        <div className="pointer-events-none absolute left-3 top-20 z-10 w-[min(22rem,calc(100%-1.5rem))] sm:left-4 sm:top-24">
+          <div className="pointer-events-auto rounded-2xl bg-primary px-4 py-3 text-primary-foreground map-shadow">
             <div className="flex items-center gap-3">
               <StepIcon icon={arrived ? "arrive" : route.steps[stepIndex]!.icon} />
               <div className="min-w-0">
