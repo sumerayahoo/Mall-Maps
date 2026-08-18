@@ -336,8 +336,8 @@ function Splash() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const a = window.setTimeout(() => setFading(true), 1400);
-    const b = window.setTimeout(() => setDone(true), 4200);
+    const a = window.setTimeout(() => setFading(true), 2200);
+    const b = window.setTimeout(() => setDone(true), 3200);
     return () => {
       window.clearTimeout(a);
       window.clearTimeout(b);
@@ -349,11 +349,10 @@ function Splash() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 z-50 grid place-items-center bg-background transition-all duration-[2600ms] ease-out"
+      className="pointer-events-none fixed inset-0 z-50 grid place-items-center bg-background transition-all duration-1000 ease-out"
       style={{
         opacity: fading ? 0 : 1,
-        filter: fading ? "blur(28px)" : "blur(0px)",
-        transform: fading ? "scale(1.06)" : "scale(1)",
+        transform: fading ? "translateY(-12px)" : "translateY(0)",
       }}
     >
       <img
